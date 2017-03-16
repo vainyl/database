@@ -21,7 +21,7 @@ use Vainyl\Database\Factory\DatabaseFactoryInterface;
  *
  * @author Taras P. Girnyk <taras.p.gyrnik@gmail.com>
  */
-class DatabaseStorage extends AbstractIdentifiableStorage
+class DatabaseStorage extends AbstractIdentifiableStorage implements DatabaseStorageInterface
 {
     private $databases = [];
 
