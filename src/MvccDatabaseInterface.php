@@ -4,11 +4,11 @@
  *
  * PHP Version 7
  *
- * @package   vain-database
+ * @package   database
  * @license   https://opensource.org/licenses/MIT MIT License
- * @link      https://github.com/allflame/vain-database
+ * @link      https://vainyl.com
  */
-
+declare(strict_types = 1);
 namespace Vainyl\Database;
 
 /**
