@@ -19,7 +19,7 @@ use Vainyl\Database\Exception\LevelIntegrityException;
  *
  * @author Taras P. Girnyk <taras.p.gyrnik@gmail.com>
  */
-abstract class AbstractMvccDatabase implements MvccDatabaseInterface
+abstract class AbstractMvccDatabase extends AbstractDatabase implements MvccDatabaseInterface
 {
     private $level = 0;
 
