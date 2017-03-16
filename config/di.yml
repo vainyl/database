@@ -1,0 +1,9 @@
+services:
+  database.factory:
+    class: Vainyl\Database\Factory\DatabaseFactory
+  database.factory.logger:
+    decorates: database.factory
+    class: Vainyl\Database\Factory\Decorator\LoggerDatabaseFactoryDecorator
+    arguments: ['@database.factory', '@logger']
+  database.storage:
+    class: Vainyl\Database\Storage\DatabaseStorage

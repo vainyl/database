@@ -12,37 +12,56 @@ declare(strict_types = 1);
 
 namespace Vainyl\Database;
 
+use Vainyl\Database\Exception\LevelIntegrityException;
+
 /**
  * Class AbstractMvccDatabase
  *
  * @author Taras P. Girnyk <taras.p.gyrnik@gmail.com>
  */
-class AbstractMvccDatabase implements MvccDatabaseInterface
+abstract class AbstractMvccDatabase implements MvccDatabaseInterface
 {
-    private $level;
+    private $level = 0;
+
+    /**
+     * @return int
+     */
+    public function getLevel(): int
+    {
+        return $this->level;
+    }
 
     /**
      * @return bool
      */
-    abstract public function doStartTransaction() : bool;
+    abstract public function doStartTransaction(): bool;
 
     /**
      * @return bool
      */
-    abstract public function doCommitTransaction() : bool;
+    abstract public function doCommitTransaction(): bool;
 
     /**
      * @return bool
      */
-    abstract public function doRollbackTransaction() : bool;
-
+    abstract public function doRollbackTransaction(): bool;
 
     /**
      * @inheritDoc
      */
     public function startTransaction(): bool
     {
-        trigger_error('Method startTransaction is not implemented', E_USER_ERROR);
+        if (0 < $this->level) {
+            $this->level++;
+
+            return true;
+        }
+
+        if (0 > $this->level) {
+            throw new LevelIntegrityException($this, $this->level);
+        }
+
+        return $this->doStartTransaction();
     }
 
     /**
@@ -50,7 +69,17 @@ class AbstractMvccDatabase implements MvccDatabaseInterface
      */
     public function commitTransaction(): bool
     {
-        trigger_error('Method commitTransaction is not implemented', E_USER_ERROR);
+        $this->level--;
+
+        if (0 < $this->level) {
+            return true;
+        }
+
+        if (0 > $this->level) {
+            throw new LevelIntegrityException($this, $this->level);
+        }
+
+        return $this->doCommitTransaction();
     }
 
     /**
@@ -58,6 +87,16 @@ class AbstractMvccDatabase implements MvccDatabaseInterface
      */
     public function rollbackTransaction(): bool
     {
-        trigger_error('Method rollbackTransaction is not implemented', E_USER_ERROR);
+        $this->level--;
+
+        if (0 < $this->level) {
+            return true;
+        }
+
+        if (0 > $this->level) {
+            throw new LevelIntegrityException($this, $this->level);
+        }
+
+        return $this->doRollbackTransaction();
     }
 }
