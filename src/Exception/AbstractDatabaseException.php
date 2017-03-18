@@ -57,5 +57,4 @@ abstract class AbstractDatabaseException extends AbstractCoreException implement
     {
         return $this->database;
     }
-
 }
