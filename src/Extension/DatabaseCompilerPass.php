@@ -17,6 +17,7 @@ use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
 use Vainyl\Core\Extension\AbstractCompilerPass;
 use Vainyl\Core\Extension\Exception\MissingRequiredFieldException;
+use Vainyl\Core\Extension\Exception\MissingRequiredServiceException;
 
 /**
  * Class DatabaseCompilerPass
@@ -31,7 +32,7 @@ class DatabaseCompilerPass extends AbstractCompilerPass
     public function process(ContainerBuilder $container)
     {
         if (false === ($container->hasDefinition('database.storage'))) {
-            return $this;
+            throw new MissingRequiredServiceException($container, 'database.storage');
         }
 
         $services = $container->findTaggedServiceIds('database');

@@ -12,7 +12,8 @@ declare(strict_types = 1);
 
 namespace Vainyl\Database\Storage;
 
-use Vainyl\Core\Id\Storage\AbstractIdentifiableStorage;
+use Vainyl\Core\Storage\Proxy\AbstractStorageProxy;
+use Vainyl\Core\Storage\StorageInterface;
 use Vainyl\Database\DatabaseInterface;
 use Vainyl\Database\Factory\DatabaseFactoryInterface;
 
@@ -21,20 +22,28 @@ use Vainyl\Database\Factory\DatabaseFactoryInterface;
  *
  * @author Taras P. Girnyk <taras.p.gyrnik@gmail.com>
  */
-class DatabaseStorage extends AbstractIdentifiableStorage implements DatabaseStorageInterface
+class DatabaseStorage extends AbstractStorageProxy
 {
-    private $databases = [];
-
     private $databaseFactory;
 
     /**
-     * ConnectionStorage constructor.
+     * DatabaseStorage constructor.
      *
+     * @param StorageInterface         $storage
      * @param DatabaseFactoryInterface $databaseFactory
      */
-    public function __construct(DatabaseFactoryInterface $databaseFactory)
+    public function __construct(StorageInterface $storage, DatabaseFactoryInterface $databaseFactory)
     {
         $this->databaseFactory = $databaseFactory;
+        parent::__construct($storage);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function offsetGet($offset)
+    {
+        return $this->databaseFactory->decorate(parent::offsetGet($offset));
     }
 
     /**
@@ -44,10 +53,6 @@ class DatabaseStorage extends AbstractIdentifiableStorage implements DatabaseSto
      */
     public function getConnection(string $alias): DatabaseInterface
     {
-        if (false === array_key_exists($alias, $this->databases)) {
-            $this->databases[$alias] = $this->databaseFactory->decorate($this->offsetGet($alias));
-        }
-
-        return $this->databases[$alias];
+        return $this->offsetGet($alias);
     }
 }
