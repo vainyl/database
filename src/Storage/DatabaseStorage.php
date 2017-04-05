@@ -8,12 +8,12 @@
  * @license   https://opensource.org/licenses/MIT MIT License
  * @link      https://vainyl.com
  */
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Vainyl\Database\Storage;
 
+use Ds\Map;
 use Vainyl\Core\Storage\Proxy\AbstractStorageProxy;
-use Vainyl\Core\Storage\StorageInterface;
 use Vainyl\Database\DatabaseInterface;
 use Vainyl\Database\Factory\DatabaseFactoryInterface;
 
@@ -29,10 +29,10 @@ class DatabaseStorage extends AbstractStorageProxy
     /**
      * DatabaseStorage constructor.
      *
-     * @param StorageInterface         $storage
+     * @param Map                      $storage
      * @param DatabaseFactoryInterface $databaseFactory
      */
-    public function __construct(StorageInterface $storage, DatabaseFactoryInterface $databaseFactory)
+    public function __construct(Map $storage, DatabaseFactoryInterface $databaseFactory)
     {
         $this->databaseFactory = $databaseFactory;
         parent::__construct($storage);
