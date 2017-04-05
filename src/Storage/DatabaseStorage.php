@@ -47,6 +47,19 @@ class DatabaseStorage extends AbstractStorageProxy
     }
 
     /**
+     * @param string            $alias
+     * @param DatabaseInterface $database
+     *
+     * @return $this
+     */
+    public function addDatabase(string $alias, DatabaseInterface $database)
+    {
+        $this->offsetSet($alias, $database);
+
+        return $this;
+    }
+
+    /**
      * @param string $alias
      *
      * @return DatabaseInterface

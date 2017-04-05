@@ -41,6 +41,9 @@ class DatabaseExtension extends AbstractExtension
                 if (false === array_key_exists('connection', $configData)) {
                     throw new MissingRequiredFieldException($container, $name, $configData, 'connection');
                 }
+                if (false === array_key_exists('driver', $configData)) {
+                    throw new MissingRequiredFieldException($container, $name, $configData, 'driver');
+                }
                 $definition = (new Definition())
                     ->setFactory(['database.factory.' . $configData['driver'], 'createDatabase'])
                     ->setArguments([$name, $configData])

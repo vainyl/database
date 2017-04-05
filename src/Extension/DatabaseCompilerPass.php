@@ -51,7 +51,7 @@ class DatabaseCompilerPass extends AbstractCompilerPass
 
                 $containerDefinition = $container->getDefinition('database.storage');
                 $containerDefinition
-                    ->addMethodCall('addInstance', [$alias, new Reference($inner)]);
+                    ->addMethodCall('addDatabase', [$alias, new Reference($inner)]);
 
                 $decoratedDefinition = (new Definition())
                     ->setFactory(['database.storage', 'getDatabase'])
