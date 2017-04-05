@@ -8,7 +8,8 @@
  * @license   https://opensource.org/licenses/MIT MIT License
  * @link      https://vainyl.com
  */
-declare(strict_types = 1);
+declare(strict_types=1);
+
 namespace Vainyl\Database;
 
 use Vainyl\Connection\ConnectionInterface;
@@ -21,6 +22,8 @@ use Vainyl\Core\Id\AbstractIdentifiable;
  */
 abstract class AbstractDatabase extends AbstractIdentifiable implements DatabaseInterface
 {
+    private $name;
+
     private $connection;
 
     private $connectionInstance = null;
@@ -28,10 +31,12 @@ abstract class AbstractDatabase extends AbstractIdentifiable implements Database
     /**
      * AbstractDatabase constructor.
      *
-     * @param ConnectionInterface               $connection
+     * @param string              $name
+     * @param ConnectionInterface $connection
      */
-    public function __construct(ConnectionInterface $connection)
+    public function __construct(string $name, ConnectionInterface $connection)
     {
+        $this->name = $name;
         $this->connection = $connection;
     }
 
@@ -40,7 +45,7 @@ abstract class AbstractDatabase extends AbstractIdentifiable implements Database
      */
     public function getName(): string
     {
-        return basename(get_class($this));
+        return $this->name;
     }
 
     /**
