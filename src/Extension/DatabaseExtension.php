@@ -49,6 +49,7 @@ class DatabaseExtension extends AbstractExtension
                 $container->setDefinition('database.' . $name, $definition);
             }
         }
+        $container->addCompilerPass(new DatabaseCompilerPass());
 
         return parent::load($configs, $container);
     }

@@ -8,7 +8,7 @@
  * @license   https://opensource.org/licenses/MIT MIT License
  * @link      https://vainyl.com
  */
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Vainyl\Database\Extension;
 
@@ -38,6 +38,9 @@ class DatabaseCompilerPass extends AbstractCompilerPass
         $services = $container->findTaggedServiceIds('database');
         foreach ($services as $id => $tags) {
             foreach ($tags as $tag) {
+                if ('database' !== $tag['name']) {
+                    continue;
+                }
                 if (false === array_key_exists('alias', $tag)) {
                     throw new MissingRequiredFieldException($container, $id, $tag, 'alias');
                 }
