@@ -20,7 +20,7 @@ use Vainyl\Database\DatabaseInterface;
  *
  * @author Taras P. Girnyk <taras.p.gyrnik@gmail.com>
  */
-class AbstractDatabaseException extends AbstractCoreException
+abstract class AbstractDatabaseException extends AbstractCoreException implements DatabaseExceptionInterface
 {
     private $database;
 
@@ -50,4 +50,11 @@ class AbstractDatabaseException extends AbstractCoreException
         return array_merge(['database' => $this->database->getName()], parent::toArray());
     }
 
+    /**
+     * @inheritDoc
+     */
+    public function getDatabase(): DatabaseInterface
+    {
+        return $this->database;
+    }
 }

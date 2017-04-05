@@ -10,22 +10,20 @@
  */
 declare(strict_types = 1);
 
-namespace Vainyl\Database\Factory;
+namespace Vainyl\Database\Exception;
 
-use Vainyl\Core\Id\IdentifiableInterface;
+use Vainyl\Core\ArrayX\ArrayInterface;
 use Vainyl\Database\DatabaseInterface;
 
 /**
- * Interface DatabaseFactoryInterface
+ * Interface DatabaseExceptionInterface
  *
  * @author Taras P. Girnyk <taras.p.gyrnik@gmail.com>
  */
-interface DatabaseFactoryInterface extends IdentifiableInterface
+interface DatabaseExceptionInterface extends ArrayInterface, \Throwable
 {
     /**
-     * @param DatabaseInterface $database
-     *
      * @return DatabaseInterface
      */
-    public function decorate(DatabaseInterface $database) : DatabaseInterface;
+    public function getDatabase() : DatabaseInterface;
 }

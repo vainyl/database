@@ -8,7 +8,7 @@
  * @license   https://opensource.org/licenses/MIT MIT License
  * @link      https://vainyl.com
  */
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Vainyl\Database\Extension;
 
@@ -16,7 +16,8 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
 use Vainyl\Core\Extension\AbstractCompilerPass;
-use Vainyl\Core\Extension\Exception\MissingTagFieldException;
+use Vainyl\Core\Extension\Exception\MissingRequiredFieldException;
+use Vainyl\Core\Extension\Exception\MissingRequiredServiceException;
 
 /**
  * Class DatabaseCompilerPass
@@ -31,14 +32,17 @@ class DatabaseCompilerPass extends AbstractCompilerPass
     public function process(ContainerBuilder $container)
     {
         if (false === ($container->hasDefinition('database.storage'))) {
-            return $this;
+            throw new MissingRequiredServiceException($container, 'database.storage');
         }
 
         $services = $container->findTaggedServiceIds('database');
         foreach ($services as $id => $tags) {
             foreach ($tags as $tag) {
+                if ('database' !== $tag['name']) {
+                    continue;
+                }
                 if (false === array_key_exists('alias', $tag)) {
-                    throw new MissingTagFieldException($this, $id, $tag, 'alias');
+                    throw new MissingRequiredFieldException($container, $id, $tag, 'alias');
                 }
                 $alias = $tag['alias'];
                 $definition = $container->getDefinition($id);
@@ -47,7 +51,7 @@ class DatabaseCompilerPass extends AbstractCompilerPass
 
                 $containerDefinition = $container->getDefinition('database.storage');
                 $containerDefinition
-                    ->addMethodCall('addInstance', [$alias, new Reference($inner)]);
+                    ->addMethodCall('addDatabase', [$alias, new Reference($inner)]);
 
                 $decoratedDefinition = (new Definition())
                     ->setFactory(['database.storage', 'getDatabase'])

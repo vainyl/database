@@ -8,11 +8,12 @@
  * @license   https://opensource.org/licenses/MIT MIT License
  * @link      https://vainyl.com
  */
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Vainyl\Database\Storage;
 
-use Vainyl\Core\Id\Storage\AbstractIdentifiableStorage;
+use Ds\Map;
+use Vainyl\Core\Storage\Proxy\AbstractStorageProxy;
 use Vainyl\Database\DatabaseInterface;
 use Vainyl\Database\Factory\DatabaseFactoryInterface;
 
@@ -21,20 +22,41 @@ use Vainyl\Database\Factory\DatabaseFactoryInterface;
  *
  * @author Taras P. Girnyk <taras.p.gyrnik@gmail.com>
  */
-class DatabaseStorage extends AbstractIdentifiableStorage
+class DatabaseStorage extends AbstractStorageProxy
 {
-    private $databases = [];
-
     private $databaseFactory;
 
     /**
-     * ConnectionStorage constructor.
+     * DatabaseStorage constructor.
      *
+     * @param Map                      $storage
      * @param DatabaseFactoryInterface $databaseFactory
      */
-    public function __construct(DatabaseFactoryInterface $databaseFactory)
+    public function __construct(Map $storage, DatabaseFactoryInterface $databaseFactory)
     {
         $this->databaseFactory = $databaseFactory;
+        parent::__construct($storage);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function offsetGet($offset)
+    {
+        return $this->databaseFactory->decorate(parent::offsetGet($offset));
+    }
+
+    /**
+     * @param string            $alias
+     * @param DatabaseInterface $database
+     *
+     * @return $this
+     */
+    public function addDatabase(string $alias, DatabaseInterface $database)
+    {
+        $this->offsetSet($alias, $database);
+
+        return $this;
     }
 
     /**
@@ -44,10 +66,6 @@ class DatabaseStorage extends AbstractIdentifiableStorage
      */
     public function getConnection(string $alias): DatabaseInterface
     {
-        if (false === array_key_exists($alias, $this->databases)) {
-            $this->databases[$alias] = $this->databaseFactory->decorate($this->offsetGet($alias));
-        }
-
-        return $this->databases[$alias];
+        return $this->offsetGet($alias);
     }
 }
