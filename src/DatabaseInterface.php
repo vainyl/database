@@ -11,7 +11,7 @@
 declare(strict_types = 1);
 namespace Vainyl\Database;
 
-use Vainyl\Core\Name\NameableInterface;
+use Vainyl\Core\NameableInterface;
 
 /**
  * Interface DatabaseInterface

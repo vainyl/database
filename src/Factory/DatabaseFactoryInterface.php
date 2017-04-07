@@ -12,7 +12,7 @@ declare(strict_types = 1);
 
 namespace Vainyl\Database\Factory;
 
-use Vainyl\Core\Id\IdentifiableInterface;
+use Vainyl\Core\IdentifiableInterface;
 use Vainyl\Database\DatabaseInterface;
 
 /**

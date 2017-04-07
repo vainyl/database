@@ -13,7 +13,7 @@ declare(strict_types=1);
 namespace Vainyl\Database;
 
 use Vainyl\Connection\ConnectionInterface;
-use Vainyl\Core\Id\AbstractIdentifiable;
+use Vainyl\Core\AbstractIdentifiable;
 
 /**
  * Class AbstractDatabase
