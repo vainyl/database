@@ -16,8 +16,8 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
 use Vainyl\Core\Extension\AbstractCompilerPass;
-use Vainyl\Core\Extension\Exception\MissingRequiredFieldException;
-use Vainyl\Core\Extension\Exception\MissingRequiredServiceException;
+use Vainyl\Core\Exception\MissingRequiredFieldException;
+use Vainyl\Core\Exception\MissingRequiredServiceException;
 
 /**
  * Class DatabaseCompilerPass
