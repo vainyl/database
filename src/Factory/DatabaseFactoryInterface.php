@@ -8,11 +8,11 @@
  * @license   https://opensource.org/licenses/MIT MIT License
  * @link      https://vainyl.com
  */
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Vainyl\Database\Factory;
 
-use Vainyl\Core\Id\IdentifiableInterface;
+use Vainyl\Core\IdentifiableInterface;
 use Vainyl\Database\DatabaseInterface;
 
 /**
@@ -27,5 +27,5 @@ interface DatabaseFactoryInterface extends IdentifiableInterface
      *
      * @return DatabaseInterface
      */
-    public function decorate(DatabaseInterface $database) : DatabaseInterface;
+    public function decorate(DatabaseInterface $database): DatabaseInterface;
 }

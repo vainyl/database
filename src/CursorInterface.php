@@ -8,7 +8,8 @@
  * @license   https://opensource.org/licenses/MIT MIT License
  * @link      https://vainyl.com
  */
-declare(strict_types = 1);
+declare(strict_types=1);
+
 namespace Vainyl\Database;
 
 /**
@@ -21,22 +22,22 @@ interface CursorInterface extends \Countable, \Iterator
     /**
      * @return CursorInterface
      */
-    public function close() : CursorInterface;
+    public function close(): CursorInterface;
 
     /**
      * @param int $mode
      *
      * @return CursorInterface
      */
-    public function mode(int $mode) : CursorInterface;
+    public function mode(int $mode): CursorInterface;
 
     /**
      * @return array
      */
-    public function getSingle() : array;
+    public function getSingle(): array;
 
     /**
      * @return array
      */
-    public function getAll() : array;
+    public function getAll(): array;
 }
