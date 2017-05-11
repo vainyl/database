@@ -12,8 +12,8 @@ declare(strict_types=1);
 
 namespace Vainyl\Database\Storage;
 
-use Ds\Map;
-use Vainyl\Core\Storage\Proxy\AbstractStorageProxy;
+use Vainyl\Core\Storage\Decorator\AbstractStorageDecorator;
+use Vainyl\Core\Storage\StorageInterface;
 use Vainyl\Database\DatabaseInterface;
 use Vainyl\Database\Factory\DatabaseFactoryInterface;
 
@@ -22,28 +22,20 @@ use Vainyl\Database\Factory\DatabaseFactoryInterface;
  *
  * @author Taras P. Girnyk <taras.p.gyrnik@gmail.com>
  */
-class DatabaseStorage extends AbstractStorageProxy
+class DatabaseStorage extends AbstractStorageDecorator
 {
     private $databaseFactory;
 
     /**
      * DatabaseStorage constructor.
      *
-     * @param Map                      $storage
+     * @param StorageInterface         $storage
      * @param DatabaseFactoryInterface $databaseFactory
      */
-    public function __construct(Map $storage, DatabaseFactoryInterface $databaseFactory)
+    public function __construct(StorageInterface $storage, DatabaseFactoryInterface $databaseFactory)
     {
         $this->databaseFactory = $databaseFactory;
         parent::__construct($storage);
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function offsetGet($offset)
-    {
-        return $this->databaseFactory->decorate(parent::offsetGet($offset));
     }
 
     /**
@@ -54,7 +46,7 @@ class DatabaseStorage extends AbstractStorageProxy
      */
     public function addDatabase(string $alias, DatabaseInterface $database)
     {
-        $this->offsetSet($alias, $database);
+        $this->offsetSet($alias, $this->databaseFactory->decorate($database));
 
         return $this;
     }
