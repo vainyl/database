@@ -1,9 +1,4 @@
 services:
-  logger.database:
-    synthetic: true
-    parent: logger.abstract
-    tags:
-      - {name: logger}
   database.factory:
     class: Vainyl\Database\Factory\DatabaseFactory
   database.factory.logger:
