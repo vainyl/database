@@ -1,5 +1,6 @@
 services:
   logger.database:
+    synthetic: true
     parent: logger.abstract
     tags:
       - {name: logger}
