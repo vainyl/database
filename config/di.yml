@@ -4,6 +4,6 @@ services:
   database.factory.logger:
     decorates: database.factory
     class: Vainyl\Database\Factory\Decorator\LoggerDatabaseFactoryDecorator
-    arguments: ['@database.factory.logger.inner', '@logger']
+    arguments: ['@database.factory.logger.inner', '@logger.database']
   database.storage:
     class: Vainyl\Database\Storage\DatabaseStorage
