@@ -1,9 +1,13 @@
 services:
+  logger.database:
+    synthetic: true
+    tags:
+      - {name: 'logger', channel: 'database'}
   database.factory:
     class: Vainyl\Database\Factory\DatabaseFactory
   database.factory.logger:
     decorates: database.factory
     class: Vainyl\Database\Factory\Decorator\LoggerDatabaseFactoryDecorator
-    arguments: ['@database.factory', '@logger']
+    arguments: ['@database.factory.logger.inner', '@logger.database']
   database.storage:
     class: Vainyl\Database\Storage\DatabaseStorage
