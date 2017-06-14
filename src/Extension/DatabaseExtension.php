@@ -26,6 +26,15 @@ use Vainyl\Database\DatabaseInterface;
  */
 class DatabaseExtension extends AbstractExtension
 {
+
+    /**
+     * @inheritDoc
+     */
+    public function getCompilerPasses(): array
+    {
+        return [new DatabaseCompilerPass()];
+    }
+
     /**
      * @inheritDoc
      */
@@ -53,9 +62,6 @@ class DatabaseExtension extends AbstractExtension
             $container->setDefinition('database.' . $name, $definition);
         }
 
-        $container
-            ->addCompilerPass(new DatabaseCompilerPass());
-
-        parent::load($configs, $container);
+        return parent::load($configs, $container);
     }
 }
