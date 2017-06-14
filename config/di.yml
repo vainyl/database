@@ -5,10 +5,10 @@ services:
       - {name: 'logger', channel: 'database'}
   database.decorator:
     class: Vainyl\Database\Factory\DatabaseDecorator
-  database.decorator.logger:
-    decorates: database.decorator
-    class: Vainyl\Database\Factory\Decorator\LoggerDatabaseDecoratorDecorator
-    arguments: ['@database.decorator.logger.inner', '@logger.database']
+#  database.decorator.logger:
+#    decorates: database.decorator
+#    class: Vainyl\Database\Factory\Decorator\LoggerDatabaseDecoratorDecorator
+#    arguments: ['@database.decorator.logger.inner', '@logger.database']
   database.storage:
     class: Vainyl\Database\Storage\DatabaseStorage
     arguments: ['@storage.prototype', '@database.decorator']
