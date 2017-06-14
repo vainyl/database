@@ -20,7 +20,7 @@ use Vainyl\Database\DatabaseInterface;
  *
  * @author Taras P. Girnyk <taras.p.gyrnik@gmail.com>
  */
-class DatabaseFactory extends AbstractIdentifiable implements DatabaseFactoryInterface
+class DatabaseDecorator extends AbstractIdentifiable implements DatabaseDecoratorInterface
 {
     /**
      * @inheritDoc

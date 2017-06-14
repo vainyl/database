@@ -15,24 +15,24 @@ namespace Vainyl\Database\Factory\Decorator;
 use Psr\Log\LoggerInterface;
 use Vainyl\Database\DatabaseInterface;
 use Vainyl\Database\Decorator\LoggerDatabaseDecorator;
-use Vainyl\Database\Factory\DatabaseFactoryInterface;
+use Vainyl\Database\Factory\DatabaseDecoratorInterface;
 
 /**
  * Class LoggerDatabaseFactoryDecorator
  *
  * @author Taras P. Girnyk <taras.p.gyrnik@gmail.com>
  */
-class LoggerDatabaseFactoryDecorator extends AbstractDatabaseFactoryDecorator
+class LoggerDatabaseFactoryDecorator extends AbstractDatabaseDecoratorDecorator
 {
     private $logger;
 
     /**
      * @inheritDoc
      */
-    public function __construct(DatabaseFactoryInterface $databaseFactory, LoggerInterface $logger)
+    public function __construct(DatabaseDecoratorInterface $databaseDecorator, LoggerInterface $logger)
     {
         $this->logger = $logger;
-        parent::__construct($databaseFactory);
+        parent::__construct($databaseDecorator);
     }
 
     /**

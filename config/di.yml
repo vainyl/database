@@ -3,11 +3,12 @@ services:
     synthetic: true
     tags:
       - {name: 'logger', channel: 'database'}
-  database.factory:
-    class: Vainyl\Database\Factory\DatabaseFactory
-  database.factory.logger:
-    decorates: database.factory
-    class: Vainyl\Database\Factory\Decorator\LoggerDatabaseFactoryDecorator
-    arguments: ['@database.factory.logger.inner', '@logger.database']
+  database.decorator:
+    class: Vainyl\Database\Factory\DatabaseDecorator
+  database.decorator.logger:
+    decorates: database.decorator
+    class: Vainyl\Database\Factory\Decorator\LoggerDatabaseDecoratorDecorator
+    arguments: ['@database.decorator.logger.inner', '@logger.database']
   database.storage:
     class: Vainyl\Database\Storage\DatabaseStorage
+    arguments: ['@storage.prototype', '@database.decorator']

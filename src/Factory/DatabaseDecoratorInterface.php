@@ -20,7 +20,7 @@ use Vainyl\Database\DatabaseInterface;
  *
  * @author Taras P. Girnyk <taras.p.gyrnik@gmail.com>
  */
-interface DatabaseFactoryInterface extends IdentifiableInterface
+interface DatabaseDecoratorInterface extends IdentifiableInterface
 {
     /**
      * @param DatabaseInterface $database

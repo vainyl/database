@@ -15,7 +15,7 @@ namespace Vainyl\Database\Storage;
 use Vainyl\Core\Storage\Decorator\AbstractStorageDecorator;
 use Vainyl\Core\Storage\StorageInterface;
 use Vainyl\Database\DatabaseInterface;
-use Vainyl\Database\Factory\DatabaseFactoryInterface;
+use Vainyl\Database\Factory\DatabaseDecoratorInterface;
 
 /**
  * Class DatabaseStorage
@@ -29,10 +29,10 @@ class DatabaseStorage extends AbstractStorageDecorator
     /**
      * DatabaseStorage constructor.
      *
-     * @param StorageInterface         $storage
-     * @param DatabaseFactoryInterface $databaseFactory
+     * @param StorageInterface           $storage
+     * @param DatabaseDecoratorInterface $databaseFactory
      */
-    public function __construct(StorageInterface $storage, DatabaseFactoryInterface $databaseFactory)
+    public function __construct(StorageInterface $storage, DatabaseDecoratorInterface $databaseFactory)
     {
         $this->databaseFactory = $databaseFactory;
         parent::__construct($storage);
