@@ -56,7 +56,7 @@ class DatabaseStorage extends AbstractStorageDecorator
      *
      * @return DatabaseInterface
      */
-    public function getConnection(string $alias): DatabaseInterface
+    public function getDatabase(string $alias): DatabaseInterface
     {
         return $this->offsetGet($alias);
     }
