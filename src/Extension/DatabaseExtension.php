@@ -15,7 +15,6 @@ namespace Vainyl\Database\Extension;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
-use Vainyl\Core\Exception\MissingRequiredServiceException;
 use Vainyl\Core\Extension\AbstractExtension;
 use Vainyl\Database\DatabaseInterface;
 
@@ -45,9 +44,6 @@ class DatabaseExtension extends AbstractExtension
 
         foreach ($databases as $name => $config) {
             $factoryId = 'database.factory.' . $config['driver'];
-            if (false === $container->hasDefinition($factoryId)) {
-                throw new MissingRequiredServiceException($container, $factoryId);
-            }
             $definition = (new Definition())
                 ->setClass(DatabaseInterface::class)
                 ->setFactory([new Reference($factoryId), 'createDatabase'])

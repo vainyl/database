@@ -15,9 +15,10 @@ namespace Vainyl\Database\Extension;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
-use Vainyl\Core\Extension\AbstractCompilerPass;
 use Vainyl\Core\Exception\MissingRequiredFieldException;
 use Vainyl\Core\Exception\MissingRequiredServiceException;
+use Vainyl\Core\Extension\AbstractCompilerPass;
+use Vainyl\Database\DatabaseInterface;
 
 /**
  * Class DatabaseCompilerPass
@@ -38,21 +39,22 @@ class DatabaseCompilerPass extends AbstractCompilerPass
         $services = $container->findTaggedServiceIds('database');
         foreach ($services as $id => $tags) {
             foreach ($tags as $attributes) {
-                if (false === array_key_exists('alias', $attributes)) {
-                    throw new MissingRequiredFieldException($container, $id, $attributes, 'alias');
+                if (false === array_key_exists('name', $attributes)) {
+                    throw new MissingRequiredFieldException($container, $id, $attributes, 'name');
                 }
-                $alias = $attributes['alias'];
+                $name = $attributes['name'];
                 $definition = $container->getDefinition($id);
                 $inner = $id . '.inner';
                 $container->setDefinition($inner, $definition);
 
                 $containerDefinition = $container->getDefinition('database.storage');
                 $containerDefinition
-                    ->addMethodCall('addDatabase', [$alias, new Reference($inner)]);
+                    ->addMethodCall('addDatabase', [$name, new Reference($inner)]);
 
                 $decoratedDefinition = (new Definition())
-                    ->setFactory(['database.storage', 'getDatabase'])
-                    ->setArguments($alias);
+                    ->setClass(DatabaseInterface::class)
+                    ->setFactory([new Reference('database.storage'), 'getDatabase'])
+                    ->setArguments([$name]);
 
                 $container->setDefinition($id, $decoratedDefinition);
             }
