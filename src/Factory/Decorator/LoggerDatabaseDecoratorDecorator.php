@@ -18,11 +18,11 @@ use Vainyl\Database\Decorator\LoggerDatabaseDecorator;
 use Vainyl\Database\Factory\DatabaseDecoratorInterface;
 
 /**
- * Class LoggerDatabaseFactoryDecorator
+ * Class LoggerDatabaseDecoratorDecorator
  *
  * @author Taras P. Girnyk <taras.p.gyrnik@gmail.com>
  */
-class LoggerDatabaseFactoryDecorator extends AbstractDatabaseDecoratorDecorator
+class LoggerDatabaseDecoratorDecorator extends AbstractDatabaseDecoratorDecorator
 {
     private $logger;
 
