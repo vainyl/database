@@ -14,9 +14,10 @@ namespace Vainyl\Database\Extension;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
-use Vainyl\Core\Application\EnvironmentInterface;
+use Symfony\Component\DependencyInjection\Reference;
+use Vainyl\Core\Exception\MissingRequiredServiceException;
 use Vainyl\Core\Extension\AbstractExtension;
-use Vainyl\Core\Exception\MissingRequiredFieldException;
+use Vainyl\Database\DatabaseInterface;
 
 /**
  * Class DatabaseExtension
@@ -28,33 +29,33 @@ class DatabaseExtension extends AbstractExtension
     /**
      * @inheritDoc
      */
-    public function load(array $configs, ContainerBuilder $container, EnvironmentInterface $environment = null): AbstractExtension
+    public function load(array $configs, ContainerBuilder $container): AbstractExtension
     {
+        $configuration = new DatabaseConfiguration();
+        $databases = $this->processConfiguration($configuration, $configs);
+
+        foreach ($databases as $name => $config) {
+            $factoryId = 'database.factory.' . $config['driver'];
+            if (false === $container->hasDefinition($factoryId)) {
+                throw new MissingRequiredServiceException($container, $factoryId);
+            }
+            $definition = (new Definition())
+                ->setClass(DatabaseInterface::class)
+                ->setFactory([new Reference($factoryId), 'createDatabase'])
+                ->setArguments(
+                    [
+                        $name,
+                        $config['connection'],
+                        $config['options'],
+                    ]
+                )
+                ->addTag('database', ['name' => $name]);
+            $container->setDefinition('database.' . $name, $definition);
+        }
+
         $container
             ->addCompilerPass(new DatabaseCompilerPass());
 
-        foreach ($configs as $config) {
-            if (false === array_key_exists('databases', $config)) {
-                continue;
-            }
-
-            foreach ($config['databases'] as $name => $configData) {
-                if (false === array_key_exists('connection', $configData)) {
-                    throw new MissingRequiredFieldException($container, $name, $configData, 'connection');
-                }
-                if (false === array_key_exists('driver', $configData)) {
-                    throw new MissingRequiredFieldException($container, $name, $configData, 'driver');
-                }
-                $definition = (new Definition())
-                    ->setFactory(['database.factory.' . $configData['driver'], 'createDatabase'])
-                    ->setArguments([$name, $configData])
-                    ->addTag('database');
-
-                $container->setDefinition('database.' . $name, $definition);
-            }
-        }
-        $container->addCompilerPass(new DatabaseCompilerPass());
-
-        return parent::load($configs, $container, $environment);
+        parent::load($configs, $container);
     }
 }
