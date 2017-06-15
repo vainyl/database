@@ -16,6 +16,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
 use Vainyl\Core\Extension\AbstractFrameworkExtension;
+use Vainyl\Core\Extension\AbstractExtension;
 use Vainyl\Database\DatabaseInterface;
 
 /**
