@@ -15,7 +15,7 @@ namespace Vainyl\Database\Extension;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
-use Vainyl\Core\Extension\AbstractExtension;
+use Vainyl\Core\Extension\AbstractFrameworkExtension;
 use Vainyl\Database\DatabaseInterface;
 
 /**
@@ -23,7 +23,7 @@ use Vainyl\Database\DatabaseInterface;
  *
  * @author Taras P. Girnyk <taras.p.gyrnik@gmail.com>
  */
-class DatabaseExtension extends AbstractExtension
+class DatabaseExtension extends AbstractFrameworkExtension
 {
 
     /**
