@@ -40,6 +40,8 @@ class DatabaseExtension extends AbstractFrameworkExtension
      */
     public function load(array $configs, ContainerBuilder $container): AbstractExtension
     {
+        parent::load($configs, $container);
+
         $configuration = new DatabaseConfiguration();
         $databases = $this->processConfiguration($configuration, $configs);
 
@@ -59,6 +61,6 @@ class DatabaseExtension extends AbstractFrameworkExtension
             $container->setDefinition('database.' . $name, $definition);
         }
 
-        return parent::load($configs, $container);
+        return $this;
     }
 }
