@@ -28,7 +28,7 @@ class DatabaseConfiguration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('databases');
+        $rootNode = $treeBuilder->root('database');
 
         $rootNode
             ->useAttributeAsKey('name')
