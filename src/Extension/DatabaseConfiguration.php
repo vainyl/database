@@ -36,7 +36,10 @@ class DatabaseConfiguration implements ConfigurationInterface
                 ->children()
                     ->scalarNode('connection')->end()
                     ->scalarNode('driver')->end()
-                    ->arrayNode('options')->end()
+                    ->arrayNode('options')
+                        ->prototype('scalar')->end()
+                        ->defaultValue([])
+                    ->end()
                 ->end()
             ->end()
         ;
