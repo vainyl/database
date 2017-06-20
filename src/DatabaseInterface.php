@@ -28,5 +28,5 @@ interface DatabaseInterface extends NameableInterface
      *
      * @return CursorInterface
      */
-    public function runQuery($query, array $bindParams, array $bindTypes = []): CursorInterface;
+    public function runQuery($query, array $bindParams = [], array $bindTypes = []): CursorInterface;
 }
