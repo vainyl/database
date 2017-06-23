@@ -39,10 +39,10 @@ class DatabaseCompilerPass extends AbstractCompilerPass
         $services = $container->findTaggedServiceIds('database');
         foreach ($services as $id => $tags) {
             foreach ($tags as $attributes) {
-                if (false === array_key_exists('name', $attributes)) {
-                    throw new MissingRequiredFieldException($container, $id, $attributes, 'name');
+                if (false === array_key_exists('alias', $attributes)) {
+                    throw new MissingRequiredFieldException($container, $id, $attributes, 'alias');
                 }
-                $name = $attributes['name'];
+                $name = $attributes['alias'];
                 $definition = $container->getDefinition($id);
                 $inner = $id . '.inner';
                 $container->setDefinition($inner, $definition);

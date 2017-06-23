@@ -15,8 +15,8 @@ namespace Vainyl\Database\Extension;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
-use Vainyl\Core\Extension\AbstractFrameworkExtension;
 use Vainyl\Core\Extension\AbstractExtension;
+use Vainyl\Core\Extension\AbstractFrameworkExtension;
 use Vainyl\Database\DatabaseInterface;
 
 /**
@@ -26,7 +26,6 @@ use Vainyl\Database\DatabaseInterface;
  */
 class DatabaseExtension extends AbstractFrameworkExtension
 {
-
     /**
      * @inheritDoc
      */
@@ -57,7 +56,8 @@ class DatabaseExtension extends AbstractFrameworkExtension
                         $config['options'],
                     ]
                 )
-                ->addTag('database', ['name' => $name]);
+                ->addTag('database', ['alias' => $name])
+                ->addTag('database.' . $config['driver'], ['alias' => $name]);
             $container->setDefinition('database.' . $name, $definition);
         }
 
