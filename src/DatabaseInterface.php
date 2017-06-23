@@ -22,11 +22,11 @@ use Vainyl\Core\NameableInterface;
 interface DatabaseInterface extends NameableInterface
 {
     /**
-     * @param string $query
-     * @param array  $bindParams
-     * @param array  $bindTypes
+     * @param mixed $query
+     * @param array $bindParams
+     * @param array $bindTypes
      *
      * @return CursorInterface
      */
-    public function runQuery($query, array $bindParams, array $bindTypes = []): CursorInterface;
+    public function runQuery($query, array $bindParams = [], array $bindTypes = []): CursorInterface;
 }

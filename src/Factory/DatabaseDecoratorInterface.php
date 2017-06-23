@@ -4,7 +4,7 @@
  *
  * PHP Version 7
  *
- * @package   Database
+ * @package   database
  * @license   https://opensource.org/licenses/MIT MIT License
  * @link      https://vainyl.com
  */
@@ -20,18 +20,12 @@ use Vainyl\Database\DatabaseInterface;
  *
  * @author Taras P. Girnyk <taras.p.gyrnik@gmail.com>
  */
-interface DatabaseFactoryInterface extends IdentifiableInterface
+interface DatabaseDecoratorInterface extends IdentifiableInterface
 {
     /**
-     * @param string $databaseName
-     * @param string $connectionName
-     * @param array  $options
+     * @param DatabaseInterface $database
      *
      * @return DatabaseInterface
      */
-    public function createDatabase(
-        string $databaseName,
-        string $connectionName,
-        array $options = []
-    ): DatabaseInterface;
+    public function decorate(DatabaseInterface $database): DatabaseInterface;
 }

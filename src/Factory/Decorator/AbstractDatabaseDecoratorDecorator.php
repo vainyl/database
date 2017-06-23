@@ -13,25 +13,25 @@ declare(strict_types=1);
 namespace Vainyl\Database\Factory\Decorator;
 
 use Vainyl\Database\DatabaseInterface;
-use Vainyl\Database\Factory\DatabaseFactoryInterface;
+use Vainyl\Database\Factory\DatabaseDecoratorInterface;
 
 /**
  * Class AbstractDatabaseFactoryDecorator
  *
  * @author Taras P. Girnyk <taras.p.gyrnik@gmail.com>
  */
-abstract class AbstractDatabaseFactoryDecorator implements DatabaseFactoryInterface
+abstract class AbstractDatabaseDecoratorDecorator implements DatabaseDecoratorInterface
 {
-    private $databaseFactory;
+    private $databaseDecorator;
 
     /**
      * AbstractDatabaseFactoryDecorator constructor.
      *
-     * @param DatabaseFactoryInterface $databaseFactory
+     * @param DatabaseDecoratorInterface $databaseDecorator
      */
-    public function __construct(DatabaseFactoryInterface $databaseFactory)
+    public function __construct(DatabaseDecoratorInterface $databaseDecorator)
     {
-        $this->databaseFactory = $databaseFactory;
+        $this->databaseDecorator = $databaseDecorator;
     }
 
     /**
@@ -39,7 +39,7 @@ abstract class AbstractDatabaseFactoryDecorator implements DatabaseFactoryInterf
      */
     public function decorate(DatabaseInterface $database): DatabaseInterface
     {
-        return $this->databaseFactory->decorate($database);
+        return $this->databaseDecorator->decorate($database);
     }
 
     /**
@@ -47,6 +47,6 @@ abstract class AbstractDatabaseFactoryDecorator implements DatabaseFactoryInterf
      */
     public function getId(): string
     {
-        return $this->databaseFactory->getId();
+        return $this->databaseDecorator->getId();
     }
 }
