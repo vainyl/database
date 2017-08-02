@@ -9,10 +9,10 @@ services:
   collection.factory.sequence.transaction:
     decorates: collection.factory.sequence
     decoration_priority: 500
-    class: Vainyl\Event\Operation\Decorator\EventCollectionFactoryDecorator
+    class: Vainyl\Database\Operation\Decorator\TransactionCollectionFactoryDecorator
     arguments: ['@collection.factory.sequence', '@database']
   collection.factory.set.transaction:
     decorates: collection.factory.set
     decoration_priority: 500
-    class: Vainyl\Event\Operation\Decorator\EventCollectionFactoryDecorator
+    class: Vainyl\Database\Operation\Decorator\TransactionCollectionFactoryDecorator
     arguments: ['@collection.factory.set', '@database']
