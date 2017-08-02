@@ -32,13 +32,12 @@ class DatabaseConfiguration implements ConfigurationInterface
 
         $rootNode
             ->useAttributeAsKey('name')
-
             ->prototype('array')
                 ->children()
                     ->scalarNode('connection')->end()
                     ->scalarNode('driver')->end()
-                    ->boolean('mvcc')->defaultFalse()->end()
-                    ->boolean('decorate')->defaultFalse()->end()
+                    ->booleanNode('mvcc')->defaultFalse()->end()
+                    ->booleanNode('decorate')->defaultFalse()->end()
                     ->arrayNode('options')
                         ->prototype('variable')->end()
                         ->defaultValue([])
