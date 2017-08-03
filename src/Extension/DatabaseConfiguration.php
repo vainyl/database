@@ -33,18 +33,17 @@ class DatabaseConfiguration implements ConfigurationInterface
         $rootNode
             ->useAttributeAsKey('name')
             ->prototype('array')
-                ->children()
-                    ->scalarNode('connection')->end()
-                    ->scalarNode('driver')->end()
-                    ->booleanNode('mvcc')->defaultFalse()->end()
-                    ->booleanNode('decorate')->defaultFalse()->end()
-                    ->arrayNode('options')
-                        ->prototype('variable')->end()
-                        ->defaultValue([])
-                    ->end()
-                ->end()
+            ->children()
+            ->scalarNode('connection')->end()
+            ->scalarNode('driver')->end()
+            ->booleanNode('mvcc')->defaultFalse()->end()
+            ->booleanNode('decorate')->defaultFalse()->end()
+            ->arrayNode('options')
+            ->prototype('variable')->end()
+            ->defaultValue([])
             ->end()
-        ;
+            ->end()
+            ->end();
 
         return $treeBuilder;
     }
