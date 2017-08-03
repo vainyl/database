@@ -13,9 +13,7 @@ declare(strict_types=1);
 namespace Vainyl\Database\Storage;
 
 use Vainyl\Core\Storage\Decorator\AbstractStorageDecorator;
-use Vainyl\Core\Storage\StorageInterface;
 use Vainyl\Database\DatabaseInterface;
-use Vainyl\Database\Factory\DatabaseDecoratorInterface;
 
 /**
  * Class DatabaseStorage
@@ -24,20 +22,6 @@ use Vainyl\Database\Factory\DatabaseDecoratorInterface;
  */
 class DatabaseStorage extends AbstractStorageDecorator
 {
-    private $databaseFactory;
-
-    /**
-     * DatabaseStorage constructor.
-     *
-     * @param StorageInterface           $storage
-     * @param DatabaseDecoratorInterface $databaseFactory
-     */
-    public function __construct(StorageInterface $storage, DatabaseDecoratorInterface $databaseFactory)
-    {
-        $this->databaseFactory = $databaseFactory;
-        parent::__construct($storage);
-    }
-
     /**
      * @param string            $alias
      * @param DatabaseInterface $database
@@ -46,7 +30,7 @@ class DatabaseStorage extends AbstractStorageDecorator
      */
     public function addDatabase(string $alias, DatabaseInterface $database)
     {
-        $this->offsetSet($alias, $this->databaseFactory->decorate($database));
+        $this->offsetSet($alias, $database);
 
         return $this;
     }
