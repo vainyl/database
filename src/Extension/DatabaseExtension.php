@@ -37,7 +37,7 @@ class DatabaseExtension extends AbstractFrameworkExtension
      */
     public function getCompilerPasses(): array
     {
-        return [new DatabaseCompilerPass()];
+        return [[new DatabaseCompilerPass()]];
     }
 
     /**
