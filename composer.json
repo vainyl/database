@@ -27,7 +27,7 @@
     "suggest" : {
         "vainyl/redis" : "Driver-agnostic redis classes",
         "vainyl/pdo" : "Pdo adapters to work with database classes",
-        "vainyl/mongo-bridge" : "Mongo and MongoDB driver adapters"
+        "vainyl/mongo" : "Mongo and MongoDB driver adapters"
     },
     "prefer-stable": true,
     "minimum-stability": "dev"
