@@ -12,7 +12,7 @@ declare(strict_types=1);
 
 namespace Vainyl\Database\Exception;
 
-use Vainyl\Core\ArrayInterface;
+use Vainyl\Core\Exception\CoreExceptionInterface;
 use Vainyl\Database\DatabaseInterface;
 
 /**
@@ -20,7 +20,7 @@ use Vainyl\Database\DatabaseInterface;
  *
  * @author Taras P. Girnyk <taras.p.gyrnik@gmail.com>
  */
-interface DatabaseExceptionInterface extends ArrayInterface, \Throwable
+interface DatabaseExceptionInterface extends CoreExceptionInterface
 {
     /**
      * @return DatabaseInterface
