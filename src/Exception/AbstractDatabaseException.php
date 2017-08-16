@@ -30,13 +30,13 @@ abstract class AbstractDatabaseException extends AbstractCoreException implement
      * @param DatabaseInterface $database
      * @param string            $message
      * @param int               $code
-     * @param \Exception|null   $previous
+     * @param \Throwable|null   $previous
      */
     public function __construct(
         DatabaseInterface $database,
         string $message,
         int $code = 500,
-        \Exception $previous = null
+        \Throwable $previous = null
     ) {
         $this->database = $database;
         parent::__construct($message, $code, $previous);
@@ -45,16 +45,16 @@ abstract class AbstractDatabaseException extends AbstractCoreException implement
     /**
      * @inheritDoc
      */
-    public function toArray(): array
+    public function getDatabase(): DatabaseInterface
     {
-        return array_merge(['database' => $this->database->getName()], parent::toArray());
+        return $this->database;
     }
 
     /**
      * @inheritDoc
      */
-    public function getDatabase(): DatabaseInterface
+    public function toArray(): array
     {
-        return $this->database;
+        return array_merge(['database' => $this->database->getName()], parent::toArray());
     }
 }
