@@ -25,7 +25,7 @@
         }
     ],
     "suggest" : {
-        "vainyl/redis" : "Driver-agnostic redis classes",
+        "vainyl/credis-bridge" : "CRedis native extension adapter",
         "vainyl/pdo" : "Pdo adapters to work with database classes",
         "vainyl/mongo" : "Mongo and MongoDB driver adapters"
     },
