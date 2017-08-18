@@ -14,9 +14,9 @@
     },
     "require": {
         "php": ">=7.1",
-        "vainyl/core": "dev-master",
-        "vainyl/connection": "dev-master",
-        "vainyl/operation": "dev-master"
+        "vainyl/core": "0.2.x-dev",
+        "vainyl/connection": "0.2.x-dev",
+        "vainyl/operation": "0.2.x-dev"
     },
     "repositories": [
         {
